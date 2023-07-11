@@ -19,22 +19,27 @@ public class DemoforredisApplication {
 	private ProductDao dao;
 	@PostMapping
 	public Product savealldata(@RequestBody Product product){
+
 		return dao.save(product);
 	}
 	@GetMapping("/{all}")
-	public List<Object> getall(){
-		return Collections.singletonList(dao.findAll());
+	public List<Product> getall(){
+
+		return dao.findAll();
 	}
 @GetMapping("/{id}")
 	public Product findproduct(@PathVariable int id){
+
 		return dao.findProductById(id);
 	}
 @DeleteMapping("/{id}")
 	public  String deletedid(@PathVariable int id){
+
 		return dao.deleteproduct(id);
 	}
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(DemoforredisApplication.class, args);
 	}
 
