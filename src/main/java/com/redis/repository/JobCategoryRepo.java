@@ -21,7 +21,7 @@ public class JobCategoryRepo {
     public  String savejobMainCategorydatainredis(List<JobCategory> jobCategoryList){
         logger.info("START: savejobMainCategorydatainredis() :JobCategoryService");
         String result=null;
-        template.opsForHash().put("JOB_MAINCAT",JOB_MAINCAT_KEY,jobCategoryList);
+        template.opsForHash().put(JOB_MAINCAT,JOB_MAINCAT,jobCategoryList);
         System.out.println(jobCategoryList);
         result="DONE";
         logger.info("END: savejobMainCategorydatainredis() :JobCategoryService");

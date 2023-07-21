@@ -2,8 +2,10 @@ package com.redis.JobCategory;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class JobCategory {
+public class JobCategory implements Serializable {
     private long id;
     private String job_Category;
 

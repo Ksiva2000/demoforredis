@@ -23,19 +23,19 @@ public class JobCategoryService {
 
     public String dumpJobCategorydataintoRedis(String dumpJobCategory) {
         logger.info("START: dumpJobCategorydataintoRedis() :JobCategoryService");
-        String jobCategory = null;
+        String jobCat = null;
         String result = null;
         if (dumpJobCategory.equals("yes")) {
-            jobCategory = insertJobCategorydataintoRedis();
-            result = "jobCategory         :" + jobCategory;
-            logger.info("END: dumpJobCategorydataintoRedis() :JobCategoryService");
+            jobCat = insertJobCategorydataintoRedis();
+            result = "JobCategory           : "+jobCat;
         }
-        return "Failed in the Service";
+        logger.info("END: dumpJobCategorydataintoRedis() :JobCategoryService");
+        return result;
     }
 
     private String insertJobCategorydataintoRedis() {
-        logger.info("START: insertJobCategorydataintoRedis() :JobCategoryService");
         try {
+            logger.info("START: insertJobCategorydataintoRedis() :JobCategoryService");
             String result = null;
             String query = "select m_id,job_maincategory from \n" +
                     "job_maincategory where deleted=false\n" +
@@ -44,23 +44,20 @@ public class JobCategoryService {
                 JobCategory jc=new JobCategory();
                 jc.setJob_Category(rs.getString(2));
                 jc.setId(rs.getLong(1));
-                System.out.println(jc);
                 return jc;
             };
             List<JobCategory> jobmain = jdbcTemplate.query(query,jobMain);
-            System.out.println(jobmain);
             if (jobmain != null) {
-                System.out.println("go to the if condition");
                 result = jobCategoryRepo.savejobMainCategorydatainredis(jobmain);
                 logger.info("END: insertJobCategorydataintoRedis() :JobCategoryService");
-                System.out.println(result+"Result in service");
+
                 return result;
             } else {
-                return "Failed";
+                return "Failed in insertjob()";
             }
         } catch (Exception e) {
-            System.out.println("Error in service class");
-            return "Failed";
+            System.out.println("Error in service class"+e.getMessage());
+            return "Failed in insertjob()";
         }
     }
 }
